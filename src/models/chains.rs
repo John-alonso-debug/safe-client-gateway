@@ -10,6 +10,7 @@ pub struct ChainInfo {
     pub block_explorer_url: String,
     pub native_currency: NativeCurrency,
     pub theme: Theme,
+    pub gas_price_oracle: Option<GasPriceOracle>,
 }
 
 #[derive(Serialize, Deserialize, Debug, PartialEq, Clone)]
@@ -25,4 +26,11 @@ pub struct NativeCurrency {
 pub struct Theme {
     pub text_color: String,
     pub background_color: String,
+}
+
+#[derive(Serialize, Deserialize, Debug, PartialEq, Clone)]
+#[serde(rename_all = "camelCase")]
+pub struct GasPriceOracle {
+    pub url: String,
+    pub gas_parameter: Option<String>,
 }
