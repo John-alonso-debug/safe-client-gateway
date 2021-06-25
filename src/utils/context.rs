@@ -17,6 +17,9 @@ impl<'r> Context<'r> {
         self.client.inner()
     }
 
+    //
+    // todo x: cache
+    //
     pub fn cache(&self) -> &ServiceCache<'r> {
         &self.cache
     }

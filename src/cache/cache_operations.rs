@@ -63,6 +63,10 @@ where
         CacheResponse {
             key,
             database: Database::Default,
+
+            //
+            // todo x: redis set
+            //
             duration: request_cache_duration(),
             resp_generator: None,
         }
@@ -91,6 +95,9 @@ where
         (self.resp_generator.as_ref().unwrap())().await
     }
 
+    //
+    // todo x: cache api response
+    //
     pub async fn execute(&self, cache: &impl Cache) -> ApiResult<content::Json<String>> {
         cache_response(cache, &self).await
     }

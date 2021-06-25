@@ -8,6 +8,10 @@ use serde::Serialize;
 use std::time::Duration;
 
 const CACHE_REQS_PREFIX: &'static str = "c_reqs";
+
+//
+// todo x: redis cache key prefix
+//
 const CACHE_RESP_PREFIX: &'static str = "c_resp";
 const CACHE_REQS_RESP_PREFIX: &'static str = "c_re";
 
@@ -23,6 +27,9 @@ pub(super) fn invalidate(cache: &impl Cache, pattern: &InvalidationPattern) {
     cache.invalidate_pattern(pattern_str.as_str());
 }
 
+//
+// todo x: api cache
+//
 pub(super) async fn cache_response<S>(
     cache: &impl Cache,
     cache_response: &CacheResponse<'_, S>,
@@ -30,12 +37,20 @@ pub(super) async fn cache_response<S>(
 where
     S: Serialize,
 {
+
+    //
+    // todo x: cache key
+    //
     let cache_key = format!("{}_{}", CACHE_RESP_PREFIX, cache_response.key);
     let cached = cache.fetch(&cache_key);
     match cached {
         Some(value) => Ok(content::Json(value)),
         None => {
             let resp_string = serde_json::to_string(&cache_response.generate().await?)?;
+
+            //
+            // todo x: set key duration:
+            //
             cache.create(&cache_key, &resp_string, cache_response.duration);
             Ok(content::Json(resp_string))
         }

@@ -45,9 +45,13 @@ fn bool_with_default(key: &str, default: bool) -> bool {
     }
 }
 
+//
+// todo x: api cache
+//
 // TIME DURATION VALUES
 fn indefinite_timeout() -> usize {
-    usize_with_default("INDEFINITE_TIMEOUT", 60 * 60)
+    // todo x: fix here, ok resp, can cache long-term, err resp, should cache short-term, and refresh quick!
+    usize_with_default("INDEFINITE_TIMEOUT", 2) //  60 * 60 = 1h // 2s
 }
 
 pub fn short_error_duration() -> usize {
@@ -75,6 +79,9 @@ pub fn exchange_api_cache_duration() -> usize {
     usize_with_default("EXCHANGE_API_CACHE_DURATION", 60 * 60 * 12)
 }
 
+//
+// todo x: api cache duration
+//
 pub fn request_cache_duration() -> usize {
     usize_with_default("REQUEST_CACHE_DURATION", indefinite_timeout())
 }

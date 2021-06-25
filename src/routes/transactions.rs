@@ -62,6 +62,9 @@ pub async fn history_transactions(
         .await
 }
 
+//
+// todo x: api here
+//
 #[get("/v1/safes/<safe_address>/transactions/queued?<page_url>&<timezone_offset>&<trusted>")]
 pub async fn queued_transactions(
     context: Context<'_>,
